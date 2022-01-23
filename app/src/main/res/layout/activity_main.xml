@@ -16,7 +16,7 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:background="#777F618F"
+            android:background="#81B622"
             android:iconifiedByDefault="true"
             android:inputType="text"
             android:queryHint="Search Here" />
@@ -26,7 +26,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50sp"/>
+        android:layout_marginTop="50sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
@@ -34,11 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="10dp"
-        android:background="#777F618F"
-        android:backgroundTint="#7F618F"
+        android:background="#59981A"
+        android:backgroundTint="#59981A"
         android:onClick="addFuel"
         android:src="@android:drawable/ic_menu_add"
-        app:backgroundTint="#777F618F"
+        app:backgroundTint="#59981A"
         app:fabSize="normal"
         tools:ignore="SpeakableTextPresentCheck">
 

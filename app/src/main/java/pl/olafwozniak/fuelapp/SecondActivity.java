@@ -106,7 +106,6 @@ public class SecondActivity extends AppCompatActivity {
         public class FuelViewHolder extends RecyclerView.ViewHolder {
             public Date newDate;
             private EditText Title;
-            private TextView viewId;
             private Button Date;
             private Button Time;
 
@@ -114,10 +113,6 @@ public class SecondActivity extends AppCompatActivity {
             private EditText totalCost;
             private TextView Liters;
             private EditText km;
-
-            private Button First;
-            private Button Last;
-
             FuelActivityAdapter adapter;
 
             public FuelViewHolder(@NonNull View itemView, FuelActivityAdapter adapter){
@@ -125,8 +120,6 @@ public class SecondActivity extends AppCompatActivity {
                 Title = itemView.findViewById(R.id.title);
                 Date = itemView.findViewById(R.id.date);
                 Time = itemView.findViewById(R.id.time);
-                First = itemView.findViewById(R.id.first);
-                Last = itemView.findViewById(R.id.last);
                 priceLiters = itemView.findViewById(R.id.priceLiters);
                 totalCost = itemView.findViewById(R.id.totalCost);
                 Liters = itemView.findViewById(R.id.liters);
@@ -307,9 +300,7 @@ public class SecondActivity extends AppCompatActivity {
         public int getItemCount() {
             return fuels.size();
         }
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -317,18 +308,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
-
-    public void First(View view){
-        viewPager2.setCurrentItem(0);
-    }
-
-    public void Last(View view){
-        viewPager2.setCurrentItem(fuels.size());
-    }
+    protected void onPause() { super.onPause(); }
 
     public void delCrime(View view) {
         mDbHandler.deleteFuel(Id);
