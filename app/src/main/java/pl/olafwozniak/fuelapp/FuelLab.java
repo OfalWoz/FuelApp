@@ -27,9 +27,9 @@ public class FuelLab{
     }
 
     public Fuel getFuel(int id) {
-        for (Fuel crime : mFuels) {
-            if (crime.getId() == id) {
-                return crime;
+        for (Fuel fuel : mFuels) {
+            if (fuel.getId() == id) {
+                return fuel;
             }
         }
         return null;
@@ -37,15 +37,6 @@ public class FuelLab{
 
     public List<Fuel> getFuels() {
         return mFuels;
-    }
-
-    public void updateFuel(int id, String title, Date date){
-        for(Fuel fuel : mFuels){
-            if(fuel.getId() == id){
-                fuel.setTitle(title);
-                fuel.setDate(date);
-            }
-        }
     }
 
     public void deleteFuel(int id){
@@ -62,6 +53,12 @@ public class FuelLab{
         fuel.setId(mFuels.size());
         fuel.setTitle("Click to set");
         fuel.setDate(new Date());
+        fuel.setPriceLiters(0);
+        fuel.setLiters(0);
+        fuel.setTotalCost(0);
+        fuel.setKm(0);
+        fuel.setLperkm(0);
+        fuel.setCostperkm(0);
         mFuels.add(fuel);
     }
 }

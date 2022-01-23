@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#200048FF"
+    android:layout_margin="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,14 +13,71 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
 
-        <TextView
-            android:id="@+id/word"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Tittle"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:minHeight="40dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:id="@+id/top">
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="Id"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Tittle"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="cost"
+                android:textAlignment="center"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:minHeight="40dp"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/combustion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="l/km"
+                android:textAlignment="center"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/costperkm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="zł/1km"
+                android:textAlignment="center"
+                android:textSize="10dp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/date"
@@ -27,7 +86,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="33dp"
             android:paddingLeft="10dp"
-            android:paddingTop="5dp"
+            android:layout_margin="5dp"
+            android:textStyle="bold"
             android:text="date" />
 
     </RelativeLayout>

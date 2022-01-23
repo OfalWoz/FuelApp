@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projekty/AndroidStudio/FuelApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projekty/AndroidStudio/FuelApp/app/src/main/res/layout/activity_second.xml" value="0.25" />
+        <entry key="..\:/Projekty/AndroidStudio/FuelApp/app/src/main/res/layout/word_list_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_crime_view_pager2.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.19384057971014493" />

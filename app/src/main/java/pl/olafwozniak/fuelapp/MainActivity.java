@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 fuel.setId(Integer.parseInt(c.getString(1)));
                 fuel.setTitle(c.getString(2));
                 fuel.setDate(new Date(c.getString(3)));
+                fuel.setPriceLiters(Float.parseFloat(c.getString(4)));
+                fuel.setTotalCost(Float.parseFloat(c.getString(5)));
+                fuel.setLiters(Float.parseFloat(c.getString(6)));
+                fuel.setKm(Float.parseFloat(c.getString(7)));
+                fuel.setLperkm(Float.parseFloat(c.getString(8)));
+                fuel.setCostperkm(Float.parseFloat(c.getString(9)));
                 fuelList.add(fuel);
             }
         }

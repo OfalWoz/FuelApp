@@ -110,6 +110,11 @@ public class SecondActivity extends AppCompatActivity {
             private Button Date;
             private Button Time;
 
+            private EditText priceLiters;
+            private EditText totalCost;
+            private TextView Liters;
+            private EditText km;
+
             private Button First;
             private Button Last;
 
@@ -122,6 +127,10 @@ public class SecondActivity extends AppCompatActivity {
                 Time = itemView.findViewById(R.id.time);
                 First = itemView.findViewById(R.id.first);
                 Last = itemView.findViewById(R.id.last);
+                priceLiters = itemView.findViewById(R.id.priceLiters);
+                totalCost = itemView.findViewById(R.id.totalCost);
+                Liters = itemView.findViewById(R.id.liters);
+                km = itemView.findViewById(R.id.km);
                 this.adapter = adapter;
 
                 Date.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +168,12 @@ public class SecondActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull FuelViewHolder holder, int position) {
             Fuel current = fuels.get(position);
+            //holder.viewId.setText(current.getId());
             holder.Title.setText(current.getTitle());
+            holder.totalCost.setText(String.valueOf(current.getTotalCost()));
+            holder.priceLiters.setText(String.valueOf(current.getPriceLiters()));
+            holder.Liters.setText(String.valueOf(current.getLiters()) + "L");
+            holder.km.setText(String.valueOf(current.getKm()));
             holder.Date.setText(date);
             holder.Time.setText(time);
             newDate = new Date();
@@ -177,7 +191,7 @@ public class SecondActivity extends AppCompatActivity {
                 @Override
                 public void afterTextChanged(Editable s) {
                     current.setTitle(holder.Title.getText().toString());
-                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate());
+                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
                 }
             });
             holder.Date.addTextChangedListener(new TextWatcher() {
@@ -192,7 +206,7 @@ public class SecondActivity extends AppCompatActivity {
                 @Override
                 public void afterTextChanged(Editable s) {
                     current.setDate(holder.newDate);
-                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate());
+                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
                 }
             });
             holder.Time.addTextChangedListener(new TextWatcher() {
@@ -209,7 +223,82 @@ public class SecondActivity extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
                     holder.newDate = newDate;
                     current.setDate(holder.newDate);
-                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate());
+                    mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
+                }
+            });
+            holder.priceLiters.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (holder.priceLiters.getText().toString().isEmpty() || holder.totalCost.getText().toString().isEmpty() || holder.priceLiters.getText().toString().endsWith(".") || holder.totalCost.getText().toString().endsWith(".")) {
+                    } else {
+                        holder.Liters.setText(String.valueOf(Float.parseFloat(holder.totalCost.getText().toString()) / Float.parseFloat(holder.priceLiters.getText().toString())) + "L");
+                        current.setLiters(Float.parseFloat(holder.totalCost.getText().toString()) / Float.parseFloat(holder.priceLiters.getText().toString()));
+                    }
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (holder.priceLiters.getText().toString().isEmpty() || holder.totalCost.getText().toString().isEmpty() || holder.priceLiters.getText().toString().endsWith(".") || holder.totalCost.getText().toString().endsWith(".")){
+                    } else {
+                        current.setPriceLiters(Float.parseFloat(holder.priceLiters.getText().toString()));
+                        mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
+                    }
+                }
+            });
+            holder.totalCost.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (holder.priceLiters.getText().toString().isEmpty() || holder.totalCost.getText().toString().isEmpty() || holder.priceLiters.getText().toString().endsWith(".") || holder.totalCost.getText().toString().endsWith(".")){
+                    } else {
+                        holder.Liters.setText(String.valueOf(Float.parseFloat(holder.totalCost.getText().toString()) / Float.parseFloat(holder.priceLiters.getText().toString())) + "L");
+                        current.setLiters(Float.parseFloat(holder.totalCost.getText().toString()) / Float.parseFloat(holder.priceLiters.getText().toString()));
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (holder.priceLiters.getText().toString().isEmpty() || holder.totalCost.getText().toString().isEmpty() || holder.priceLiters.getText().toString().endsWith(".") || holder.totalCost.getText().toString().endsWith(".")){
+                    } else {
+                        current.setTotalCost(Float.parseFloat(holder.totalCost.getText().toString()));
+                        mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
+                    }
+                }
+            });
+            holder.km.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (holder.priceLiters.getText().toString().isEmpty() || holder.totalCost.getText().toString().isEmpty() || holder.priceLiters.getText().toString().endsWith(".") || holder.totalCost.getText().toString().endsWith(".")|| holder.km.getText().toString().isEmpty() || holder.km.getText().toString().endsWith(".")){
+                    } else {
+                        int id = current.getId();
+                        if(id == 0){
+                            current.setCostperkm(0);
+                            current.setLperkm(0);
+                        }else {
+                            Fuel previous = fuels.get(id-1);
+                            float l = Float.parseFloat(holder.totalCost.getText().toString()) / Float.parseFloat(holder.priceLiters.getText().toString());
+                            float road = Float.parseFloat(holder.km.getText().toString()) - previous.getKm();
+                            current.setLperkm((l/road)*100);
+                            current.setCostperkm((Float.parseFloat(holder.totalCost.getText().toString())/road));
+
+                        }
+                        current.setKm(Float.parseFloat(holder.km.getText().toString()));
+                        mDbHandler.updateFuel(current.getId(), current.getTitle(), current.getDate(), current.getPriceLiters(), current.getTotalCost(), current.getLiters(), current.getKm(), current.getLperkm(), current.getCostperkm());
+                    }
                 }
             });
         }

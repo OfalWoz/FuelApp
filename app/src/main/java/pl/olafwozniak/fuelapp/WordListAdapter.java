@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,29 +20,37 @@ import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.FuelViewHolder> implements Filterable {
 
-    public final List<Fuel> mFueles;
+    public final List<Fuel> mFuels;
     public LayoutInflater inflater;
 
 
     public WordListAdapter(Context context, List<Fuel> fuelList){
         this.inflater = LayoutInflater.from(context);
-        this.mFueles = fuelList;
+        this.mFuels = fuelList;
     }
 
     public static final String EXTRA_MESSAGE = "pl.edu.uwr.pum.recyclerviewwordlistjava.MESSAGE";
 
     class FuelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        private TextView id;
         public TextView fuelText;
         private TextView date;
+        private TextView cost;
+        private TextView combustion;
+        private TextView costperkm;
         final WordListAdapter adapter;
         public final Context context;
 
         public FuelViewHolder(@NonNull View itemView, WordListAdapter adapter) {
             super(itemView);
             context = itemView.getContext();
+            id = itemView.findViewById(R.id.id);
             fuelText = itemView.findViewById(R.id.word);
             date = itemView.findViewById(R.id.date);
+            cost = itemView.findViewById(R.id.cost);
+            combustion = itemView.findViewById(R.id.combustion);
+            costperkm = itemView.findViewById(R.id.costperkm);
             itemView.setOnClickListener(this);
             this.adapter = adapter;
         }
@@ -51,12 +58,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.FuelVi
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
-            Fuel currentFuel = mFueles.get(position);
+            Fuel currentFuel = mFuels.get(position);
             Intent intent = new Intent(context, SecondActivity.class);
             intent.putExtra("position", position);
-            intent.putExtra("title", currentFuel.getTitle());
             intent.putExtra("id", currentFuel.getId());
-            intent.putExtra("date", currentFuel.getDate());
             context.startActivity(intent);
         }
     }
@@ -70,9 +75,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.FuelVi
 
     @Override
     public void onBindViewHolder(@NonNull WordListAdapter.FuelViewHolder holder, int position) {
-        Fuel currentFuel = mFueles.get(position);
+        Fuel currentFuel = mFuels.get(position);
+        holder.id.setText("#"+String.valueOf(currentFuel.getId()));
         holder.fuelText.setText(currentFuel.getTitle());
         holder.date.setText(currentFuel.getDate().toString());
+        holder.cost.setText(String.valueOf(currentFuel.getTotalCost())+"zł");
+        holder.combustion.setText(String.valueOf(currentFuel.getLperkm())+"L/Km");
+        holder.costperkm.setText(String.valueOf(currentFuel.getCostperkm())+"zł/1km");
     }
 
     @Override
@@ -87,10 +96,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.FuelVi
             FilterResults results = new FilterResults();
 
             if (constraint.toString().isEmpty()) {
-                filter.addAll(mFueles);
+                filter.addAll(mFuels);
             }
             else {
-                for (Fuel f : mFueles) {
+                for (Fuel f : mFuels) {
                     if (f.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         filter.add(f);
                     }
@@ -102,14 +111,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.FuelVi
 
         @Override
         protected void publishResults(final CharSequence constraint, FilterResults results) {
-            mFueles.clear();
-            mFueles.addAll((Collection<? extends Fuel>) results.values);
+            mFuels.clear();
+            mFuels.addAll((Collection<? extends Fuel>) results.values);
             notifyDataSetChanged();
         }
     };
 
     @Override
     public int getItemCount() {
-        return mFueles.size();
+        return mFuels.size();
     }
 }
