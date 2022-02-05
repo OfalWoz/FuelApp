@@ -12,6 +12,7 @@ public class Fuel {
     private float km;
     private float lperkm;
     private float costperkm;
+    private String Type;
 
     public void setTitle(String s) { this.mTitle = s; }
 
@@ -48,4 +49,8 @@ public class Fuel {
     public void setDate(Date date) { this.mDate = date; }
 
     public Date getDate() { return mDate; }
+
+    public void setType(String type) { this.Type = type; }
+
+    public String getType() { return Type; }
 }
